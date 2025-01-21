@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Traffic Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+</head>
+<body>
+    <h1>Network Traffic Analysis</h1>
+    <h2>Aggregated Traffic</h2>
+    <ul>
+      {% for src_ip, total_bytes in aggregated_traffic.items() %}
+         <li>{{ src_ip }}: {{ total_bytes }} bytes</li>
+      {% endfor %}
+    </ul>
+
+    <h2>Traffic Rate</h2>
+    <p>Traffic Rate: {{ traffic_rate }} bytes/sec</p>
+
+    <h2>Top Talkers</h2>
+    {% if top_talkers %}
+      <ul>
+      {% for talker in top_talkers %}
+         <li>{{ talker.src_ip }}: {{ talker.bytes }} bytes</li>
+      {% endfor %}
+      </ul>
+    {% else %}
+        <p>No top talkers detected.</p>
+    {% endif %}
+
+    <h2>Traffic Top IPs</h2>
+      <div id="plot"></div>
+      {% if top_graph_json %}
+      <script>
+      var plot = document.getElementById('plot');
+      var graph = {{top_graph_json|safe}}
+      Plotly.newPlot(plot, graph.data, graph.layout);
+    </script>
+    {% endif %}
+</body>
+</html>
