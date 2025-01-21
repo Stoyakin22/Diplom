@@ -1,0 +1,8 @@
+Flask
+Flask-SQLAlchemy
+Flask-RESTful
+requests
+python-dotenv
+Jinja2
+plotly
+pandas
